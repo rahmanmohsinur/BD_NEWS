@@ -40,6 +40,8 @@ add_action( 'after_setup_theme', 'BD_NEWS_setup' );
 function BD_NEWS_enqueue_scripts() {
     // Enqueue Bootstrap CSS
     wp_enqueue_style( 'bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' );
+    // Enqueue FontAwesome from the CDN
+    wp_enqueue_style( 'fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css' );
 
     // Enqueue theme stylesheet
     wp_enqueue_style( 'theme-style', get_stylesheet_uri() );
@@ -52,9 +54,11 @@ function BD_NEWS_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'BD_NEWS_enqueue_scripts' );
 
+
 /**
  * Register widget areas.
  */
+ 
 function BD_NEWS_widgets_init() {
     register_sidebar( array(
         'name'          => __( 'Sidebar', 'BD_NEWS' ),
@@ -99,6 +103,29 @@ function get_excerpt($limit){
 }
 
 
+/*
+* Translated numbers and dates in Bengali
+*/
+
+// BANGLA PUBLISDED TIME FOR ARTICLE
+function BD_NEWS_article_published_time() {
+	$artPubDate = get_the_date('U');
+	$enDate = array(1,2,3,4,5,6,7,8,9,0,'January','February','March','April','May','June','July','August','September','October','November','December','Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday');
+	$bnDate = array('১','২','৩','৪','৫','৬','৭','৮','৯','০','জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর','শনিবার','রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার');
+    $uniapps_date_diff = human_time_diff( $artPubDate, current_time('timestamp') );
+	$uniapps_date_diff = str_replace($enDate, $bnDate, $uniapps_date_diff);
+	$uniapps_date_diff = $uniapps_date_diff. ' আগে';
+	
+    return $uniapps_date_diff;
+}
+
+// Bangla Number Translation
+function BD_NEWS_number( $int ) {
+    $engNumber = array(1,2,3,4,5,6,7,8,9,0,'জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর','শনিবার','রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার');
+    $bangNumber = array('১','২','৩','৪','৫','৬','৭','৮','৯','০','জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর','শনিবার','রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার');
+    $converted = str_replace( $engNumber, $bangNumber, $int );
+    return $converted;
+}
 
 
 /*
@@ -158,6 +185,17 @@ class Bootstrap_Walker_Category extends Walker_Category {
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $category, $depth, $args, $id );
     }
 }
+
+
+// Posts per pagination on search.php
+
+function modify_search_posts_per_page( $query ) {
+    // Check if this is the main query on the search page
+    if ( ! is_admin() && $query->is_main_query() && $query->is_search() ) {
+        $query->set( 'posts_per_page', 12 ); // Set the number of posts per page to 12
+    }
+}
+add_action( 'pre_get_posts', 'modify_search_posts_per_page' );
 
 /*
 * Add the necessary JavaScript for handling the AJAX request

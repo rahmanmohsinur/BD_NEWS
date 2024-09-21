@@ -10,20 +10,19 @@ get_header(); ?>
 <section id="lead-articles" class="lead-articles py-5 bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+        
+            <div class="col-lg-12 col-xl-6">
                 <?php get_template_part('template-parts/front-page/section-lead-left-wide'); ?>
-            
             </div>
-            <div class="col-md-3">
-            <?php get_template_part('template-parts/front-page/section-lead-centre-narrow'); ?>
-                
             
+            <div class="col-lg-12 col-xl-3">
+                <?php get_template_part('template-parts/front-page/section-lead-centre-narrow'); ?>
             </div>
-            <div class="col-md-3">
-            <?php get_template_part('template-parts/front-page/section-lead-right-narrow'); ?>
-                
             
+            <div class="col-lg-12 col-xl-3">
+                <?php get_template_part('template-parts/front-page/section-lead-right-narrow'); ?>
             </div>
+            
         </div>
     </div>
 </section>
@@ -45,6 +44,10 @@ get_header(); ?>
 </section>
 
 <?php get_footer(); ?>
+
+
+
+
 
 
 

@@ -1,7 +1,8 @@
 <header id="header" class="">
     <div class="container" style="padding: 0 0;">
         <div class="r-o-w">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-xl navbar-light bg-light">
+
                 <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
                     <?php
                     bloginfo( 'name' );
@@ -14,12 +15,15 @@
                     }
                     ?>
                 </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div  style="overflow-x: clip; width: 100%;">
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
+                        
+                        <ul class="navbar-nav mr-auto">
                             <?php
                             // Display categories with Bootstrap classes
                             $args = array(
@@ -36,8 +40,21 @@
                             wp_list_categories( $args );
                             ?>
                         </ul>
+    
+                        <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo home_url('/'); ?>">
+                            <div class="input-group">
+                                <input type="search" name="s" class="form-control border border-secondary" placeholder="Search" aria-label="Search" value="<?php echo get_search_query(); ?>">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary input-group-text-" type="submit">
+                                        <i class="fas fa-search"></i> <!-- FontAwesome Search Icon -->
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
+
             </nav>
         </div>
     </div>
