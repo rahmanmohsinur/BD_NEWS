@@ -2,6 +2,7 @@
 /**
  * Theme setup.
  */
+
 function BD_NEWS_setup() {
     // Add theme support for title tag
     add_theme_support( 'title-tag' );
@@ -34,6 +35,27 @@ function BD_NEWS_setup() {
 }
 add_action( 'after_setup_theme', 'BD_NEWS_setup' );
 
+// Image Croping Setup
+function imahe_setup() {
+    // Add Fitred Image Suport
+    add_theme_support('post-thumbnails');
+    add_image_size('xs-sq-thumbnail', 60, 60, true);
+    add_image_size('s-sq-thumbnail', 150, 150, true);
+    add_image_size('m-sq-thumbnail', 320, 320, true);
+
+    add_image_size('s-rect-thumbnail', 152, 85, true);
+    add_image_size('m-rect-thumbnail', 256, 144, true);
+    add_image_size('l-rect-thumbnail', 640, 360, true);
+    add_image_size('xl-rect-thumbnail', 1280, 720, true);
+    
+    // Add Post Format Sapport
+    add_theme_support('post-formats', array('aside', 'gallery', 'link', 'video'));
+  }
+  
+  add_action('after_setup_theme', 'imahe_setup');
+
+  
+
 /**
  * Enqueue scripts and styles.
  */
@@ -53,6 +75,7 @@ function BD_NEWS_enqueue_scripts() {
     wp_enqueue_script( 'theme-script', get_template_directory_uri() . '/assets/js/script.js', array( 'jquery' ), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'BD_NEWS_enqueue_scripts' );
+
 
 
 /**
@@ -103,6 +126,7 @@ function get_excerpt($limit){
 }
 
 
+
 /*
 * Translated numbers and dates in Bengali
 */
@@ -126,6 +150,7 @@ function BD_NEWS_number( $int ) {
     $converted = str_replace( $engNumber, $bangNumber, $int );
     return $converted;
 }
+
 
 
 /*
@@ -197,6 +222,8 @@ function modify_search_posts_per_page( $query ) {
 }
 add_action( 'pre_get_posts', 'modify_search_posts_per_page' );
 
+
+
 /*
 * Add the necessary JavaScript for handling the AJAX request
 */
@@ -245,3 +272,5 @@ add_action( 'wp_ajax_nopriv_load_more_posts', 'load_more_posts' );
 
 
 ?>
+
+

@@ -64,9 +64,16 @@ get_header();
         </div>
 
         <!-- Sidebar Area -->
-        <div class="col-lg-4 col-md-12 d-none d-lg-block d-xl-block">
-            <?php get_sidebar(); // Include the sidebar template ?>
+        <style>
+             .aside h5 {font-size: 1rem; font-weight: normal; margin-bottom: 0;} 
+             .sidebar-module {padding-top: 1.85rem !important;}
+             .list-group-item-action a:hover {text-decoration: none;}
+        </style>
+        <div class="aside col-lg-4 col-md-12 pl-5 d-none d-lg-block d-xl-block">
+            <?php get_template_part('shared/aside/related_posts_by_category'); ?>
+            <?php get_template_part('shared/aside/recent_posts'); ?>
         </div>
+        
     </div>
 </div>
 

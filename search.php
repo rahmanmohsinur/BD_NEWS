@@ -45,12 +45,12 @@ $custom_query = new WP_Query( $args ); ?>
                             </p>
                         </div>
                         <div class="card-footer text--center">
-                            <div class="float-left pub pub-date pb-2">
+                            <div class="float-left pub pub-date">
                                 <small class="text--muted"><i class="far fa-clock"></i>
                                     <?php echo BD_NEWS_article_published_time(); ?>
                                 </small>
                             </div>
-                            <div class="float-right pub pub-date pb-2">
+                            <div class="float-right pub pub-date">
                                 <small class="text--muted"><i class="far fa-eye"></i>
                                     <?php echo BD_NEWS_number((int) get_post_meta(get_the_ID(), 'post_views_count', true)) . ' জন পড়েছেন'; ?>
                                 </small>
